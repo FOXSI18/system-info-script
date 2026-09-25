@@ -1,0 +1,14 @@
+C:\Users\Student\RiderProjects\System-board\System-board\bin\Debug\net8.0\System-board.exe
+C:\Users\Student\RiderProjects\System-board\System-board\bin\Debug\net8.0\System-board.deps.json
+C:\Users\Student\RiderProjects\System-board\System-board\bin\Debug\net8.0\System-board.runtimeconfig.json
+C:\Users\Student\RiderProjects\System-board\System-board\bin\Debug\net8.0\System-board.dll
+C:\Users\Student\RiderProjects\System-board\System-board\bin\Debug\net8.0\System-board.pdb
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\System-board.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\System-board.AssemblyInfoInputs.cache
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\System-board.AssemblyInfo.cs
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\System-board.csproj.CoreCompileInputs.cache
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\System-board.dll
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\refint\System-board.dll
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\System-board.pdb
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\System-board.genruntimeconfig.cache
+C:\Users\Student\RiderProjects\System-board\System-board\obj\Debug\net8.0\ref\System-board.dll
