@@ -6,6 +6,7 @@
 # ║                                        ║
 # ║   [CTRL + S]  ──◆──>  SAVE             ║
 # ║   [CTRL + X]  ──◆──>  QUIT             ║
+# ║   ./sys-info-script  ──◆──>  RUN       ║
 # ║                                        ║
 # ╚════════════════════════════════════════╝
 
@@ -15,14 +16,17 @@ GREEN=$'\033[1;32m'
 YELLOW=$'\033[33m'
 SP_GREEN=$'\033[38;5;47m' # spring green
 MAGENTA=$'\033[38;5;164m'
+ORANGE_RED=$'\033[38;5;202m'
 NC=$'\033[0m' # no color
 
-# settings variables
+# init settings variables
 clear_mode=0
 status_clear="OFF"
 display_mode=0
 status_display="v"
 
+
+# SHOW OPTIONS
 print_menu() {
     case "$display_mode" in
         0)
@@ -84,121 +88,131 @@ print_menu() {
     esac
 }
 
-# start app
-echo -e "\n════════════════════════════"
-echo "Welcome to SYSTEM INFO desk!"
-echo -e "════════════════════════════\n"
+# SETTINGS
+open_settings() {
+	while true; do
+		if [ "$clear_mode" -eq 1 ]; then
+                            status_clear="${GREEN}ON ${NC}"
+                else
+                            status_clear="${RED}OFF${NC}"
+                fi
 
-label=1 # while point
-while [ "$label" -ne 0 ]; do # cycle
-
-echo
-read -n 1 -s -r -p "${YELLOW}Press any key to continue...${NC}"
-echo
-echo
-
-print_menu # options menu
-
-read -n 1 -p "Option: " value
-echo ""
-echo ""
-
-if [ "$clear_mode" -eq 1 ]; then
-	clear
-fi
+                if [ "$display_mode" -eq 1 ]; then
+                            status_display="${MAGENTA}h${NC}"
+                else
+                            status_display="${SP_GREEN}v${NC}"
+                fi
 
 
-case "$value" in
-	1)
-		uname -a
-		;;
-	2)
-		uptime
-		;;
-	3)
-		hostnamectl
-		;;
-	4)
-		fastfetch
-		;;
-	5)
-		lscpu
-		;;
-	6)
-		lshw -short
-		;;
-	7)
-		lsblk
-		;;
-	8)
-		df -h
-		;;
-	9)
-		free -h
-		;;
-	0)
-		btop
-		;;
-	q)
-		label=0 # quit from app
-		clear
-		;;
-	s)
-    		while true; do
-        		if [ "$clear_mode" -eq 1 ]; then
-            			status_clear="${GREEN}ON ${NC}"
-        		else
-            			status_clear="${RED}OFF${NC}"
-        		fi
-
-			if [ "$display_mode" -eq 1 ]; then
-                                status_display="${MAGENTA}h${NC}"
-                        else
-                                status_display="${SP_GREEN}v${NC}"
-                        fi
+                clear
+                echo "╭────────────────╮"
+                echo "│    SETTINGS    │"
+                echo "│────────────────│"
+                echo "│[c] Clear ($status_clear) │"
+                echo "│[d] Display ($status_display) │"
+                echo "│[q] Quit        │"
+                echo -e "╰────────────────╯\n"
 
 
-        		clear
-        		echo "╭────────────────╮"
-        		echo "│    SETTINGS    │"
-        		echo "│────────────────│"
-       	 		echo "│[0] Clear ($status_clear) │"
-			echo "│[d] Display ($status_display) │"
-			echo "│[q] Quit        │"
-        		echo -e "╰────────────────╯\n"
+                read -n 1 -s -p "" settingV
+
+                case "$settingV" in
+			c | C)
+				if [ "$clear_mode" -eq 1 ]; then
+					clear_mode=0
+                                else
+                                        clear_mode=1
+                                fi
+                                ;;
+                        d | D)
+                                if [ "$display_mode" -eq 1 ]; then
+                                        display_mode=0
+                                else
+                                        display_mode=1
+                                fi
+                                ;;
+                         q | Q)
+                                break
+                                ;;
+                         *)
+                                break
+                                ;;
+                 esac
+	done
+}
 
 
-			read -n 1 -s -p "" settingV
+# MAIN FUNCTION
+main() {
+	echo -e "\n════════════════════════════"
+	echo "Welcome to SYSTEM INFO desk!"
+	echo -e "════════════════════════════\n"
 
-			case "$settingV" in
-			   	 0 | 1)
-					if [ "$clear_mode" -eq 1 ]; then
-                                        	clear_mode=0
-                                	else
-                                        	clear_mode=1
-                                	fi
-        				;;
-				 d)
-					if [ "$display_mode" -eq 1 ]; then
-                                                display_mode=0
-                                        else
-                                                display_mode=1
-                                        fi
-                                        ;;
-    				 q)
-        				break
-        				;;
-    				 *)
-        				break
-        				;;
-				 esac
-    		done
-    		;;
-	r)
-		nano script.sh
-		;;
-	*)
-		echo "${YELLOW}Please enter available option (0-9)${NC}"
-esac
+	local label=1 # while point
+	while [ "$label" -ne 0 ]; do # cycle
 
-done
+		echo
+		read -n 1 -s -r -p "${YELLOW}Press any key to continue...${NC}"
+		echo
+		echo
+
+		print_menu # options menu
+
+		read -n 1 -p "Option: " value
+		echo ""
+		echo ""
+
+		if [ "$clear_mode" -eq 1 ]; then
+			clear
+		fi
+
+
+		case "$value" in
+			1)
+				uname -a # Architecture
+				;;
+			2)
+				uptime # Uptime
+				;;
+			3)
+				hostnamectl # Host
+				;;
+			4)
+				fastfetch # General
+				;;
+			5)
+				lscpu # CPU
+				;;
+			6)
+				lshw -short # Hardware
+				;;
+			7)
+				lsblk # Disks
+				;;
+			8)
+				df -h # Free space
+				;;
+			9)
+				free -h # Free RAM
+				;;
+			0)
+				btop # Processes
+				;;
+			q | Q)
+				label=0 # quit from app
+				clear
+				;;
+			s | S)
+				open_settings # settings function
+    				;;
+			r | R)
+				nano sys-info-script.sh # open script.sh
+				;;
+			*)
+				echo "${ORANGE_RED}Please enter available option${NC}"
+		esac
+
+	done
+}
+
+main # run app
